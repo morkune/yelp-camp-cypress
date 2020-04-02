@@ -1,0 +1,22 @@
+{
+  "name": "yelp-camp-cypress",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "cypress:open": "cypress open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/morkune/yelp-camp-cypress.git"
+  },
+  "author": "Jovita Morkune",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/morkune/yelp-camp-cypress/issues"
+  },
+  "homepage": "https://github.com/morkune/yelp-camp-cypress#readme",
+  "devDependencies": {
+    "cypress": "^4.3.0"
+  }
+}
