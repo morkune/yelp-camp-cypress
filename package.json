@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/morkune/yelp-camp-cypress#readme",
   "devDependencies": {
-    "cypress": "^4.3.0"
+    "cypress": "^4.3.0",
+    "cypress-file-upload": "^4.0.4"
   }
 }
