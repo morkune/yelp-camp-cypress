@@ -1,3 +1,5 @@
+/// <reference types="Cypress" />
+
 describe("Review feature tests", () => {
   beforeEach(() => {
     cy.login(Cypress.env("username"), Cypress.env("password"));
@@ -12,13 +14,13 @@ describe("Review feature tests", () => {
   });
 
   it("check review page", () => {
-    cy.get(".card:first > p >").click();
+    cy.get(".card").first().find(".btn-primary").click();
     cy.get(".reviews-link").click();
     cy.get(".checked");
   });
 
   it("editing a campground review", () => {
-    cy.get(".card:first > p >").click();
+    cy.get(".card").first().find(".btn-primary").click();
     cy.get(".reviews-card").find(".btn-warning").click();
     cy.get("#first-rate4").click();
     cy.get("textarea[type=text]").clear().type("Very nice!");

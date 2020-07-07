@@ -1,3 +1,5 @@
+/// <reference types="Cypress" />
+
 const campground = {
   name: "Cypress",
   price: "5.60",
