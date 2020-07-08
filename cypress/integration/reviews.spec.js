@@ -7,10 +7,11 @@ describe("Review feature tests", () => {
   });
 
   it("add new review", () => {
-    cy.get(".card:first > p >").click();
+    cy.get(".card").first().find(".btn-primary").click();
     cy.contains("Write a Review").click();
     cy.get("textarea[type=text]").clear().type("Awesome camp!");
     cy.contains("Submit a Review").click();
+    cy.contains(".alert.alert-success", "Your review has been successfully added.");
   });
 
   it("check review page", () => {
@@ -47,7 +48,7 @@ describe("Review feature tests", () => {
   });
 
   it("delete review", () => {
-    cy.get(".card:first > p >").click();
+    cy.get(".card").first().find(".btn-primary").click();
     cy.get(".reviews-card").find(".btn-danger").click();
     cy.contains(
       ".alert.alert-success",
