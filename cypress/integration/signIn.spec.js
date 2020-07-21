@@ -9,8 +9,8 @@ const user = {
   avatar: "https://cdn.iconscout.com/icon/free/png-512/avatar-370-456322.png",
 };
 
-function removeUserIfExists(firstName) {
-  cy.request("GET", `/api/users?firstName=${firstName}`).then((response) => {
+function removeUserIfExists(username) {
+  cy.request("GET", `/api/users?username=${username}`).then((response) => {
     if (response.body.length) {
       const user = response.body[0];
       cy.request("DELETE", `/api/users/${user._id}`);
@@ -27,13 +27,13 @@ function addUser(user) {
 describe("Sign in page tests", () => {
   beforeEach(() => {
     cy.login(Cypress.env("username"), Cypress.env("password"));
-    removeUserIfExists(user.firstName);
+    removeUserIfExists(user.username);
     removeUserIfExists("Test");
   });
 
   after(() => {
     cy.login(Cypress.env("username"), Cypress.env("password"));
-    removeUserIfExists(user.firstName);
+    removeUserIfExists(user.username);
   });
 
   it("submit a form with valid info", () => {
