@@ -1,6 +1,6 @@
 /// <reference types="Cypress" />
 
-describe("Review feature tests", () => {
+describe("Campground reviews", () => {
   beforeEach(() => {
     cy.login(Cypress.env("username"), Cypress.env("password"));
     cy.visit("/campgrounds");

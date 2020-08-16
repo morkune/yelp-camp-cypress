@@ -24,7 +24,7 @@ function addUser(user) {
   });
 }
 
-describe("Sign in page tests", () => {
+describe("Register page", () => {
   beforeEach(() => {
     cy.login(Cypress.env("username"), Cypress.env("password"));
     removeUserIfExists(user.username);

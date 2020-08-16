@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-describe("Login page tests", () => {
+describe("Login page", () => {
   beforeEach(() => {
     cy.login(Cypress.env("username"), Cypress.env("password"));
     cy.visit("/login");

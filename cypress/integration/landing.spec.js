@@ -1,10 +1,23 @@
 /// <reference types="cypress" />
 
-describe("The text elements tests", () => {
+import { removeCampgroundIfExists, addCampground } from "../utils/campgrounds";
+
+const campground = {
+  name: "Cypress",
+  price: "5.60",
+  description: "Hello World",
+  image: "fakeImage",
+};
+
+describe("Landing page", () => {
   beforeEach(() => {
     cy.login(Cypress.env("username"), Cypress.env("password"));
     cy.visit("/");
   });
+
+  after(() => {
+    removeCampgroundIfExists(campground.name);
+  })
 
   it("checking the text of the elements", () => {
     cy.contains("[data-cy=landing-header]", "Welcome to YelpCamp!");
@@ -41,9 +54,12 @@ describe("The text elements tests", () => {
   });
 
   it("search with valid input", () => {
-    cy.get("[data-cy=search]").type("test").should("have.value", "test");
+    removeCampgroundIfExists(campground.name);
+    addCampground(campground);
+
+    cy.get("[data-cy=search]").type(campground.name).should("have.value", campground.name);
     cy.get("[data-cy=submit]").click();
-    cy.url().should("include", "/campgrounds?search=test");
-    cy.contains(".card-title", "Test");
+    cy.url().should("include", `/campgrounds?search=${campground.name}`);
+    cy.contains(".card-title", campground.name);
   });
 });

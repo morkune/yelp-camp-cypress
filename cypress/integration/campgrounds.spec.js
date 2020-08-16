@@ -1,5 +1,7 @@
 /// <reference types="Cypress" />
 
+import { removeCampgroundIfExists, addCampground } from "../utils/campgrounds";
+
 const campground = {
   name: "Cypress",
   price: "5.60",
@@ -7,22 +9,7 @@ const campground = {
   image: "fakeImage",
 };
 
-function removeCampgroundIfExists(campgroundName) {
-  cy.request("GET", "/api/campgrounds").then((response) => {
-    const campground = response.body.find((x) => x.name === campgroundName);
-    if (campground) {
-      cy.request("DELETE", `/api/campgrounds/${campground._id}`);
-    }
-  });
-}
-
-function addCampground(campground) {
-  cy.request("POST", "/api/campgrounds", campground).then((response) => {
-    expect(response.body).to.have.property("name", campground.name);
-  });
-}
-
-describe("Edit feature", () => {
+describe("Campground", () => {
   beforeEach(() => {
     cy.login(Cypress.env("username"), Cypress.env("password"));
     removeCampgroundIfExists(campground.name);
@@ -35,7 +22,7 @@ describe("Edit feature", () => {
   });
 
   it("editing a campground", () => {
-    cy.contains("Cypress")
+    cy.contains(campground.name)
       .parentsUntil(".col-lg-3")
       .within(() => {
         cy.contains("More info").click();
@@ -48,5 +35,24 @@ describe("Edit feature", () => {
     cy.contains(".alert.alert-success", "Successfully Updated!");
     cy.contains(".float-right", "$ 69/night");
     cy.contains("Testing description.");
+  });
+
+  it("add new campground", () => {
+    cy.contains("Add New Campground").click();
+    cy.get("#name-input").type(campground.name);
+    cy.get("#price-input").type(campground.price);
+    cy.get("#image").attachFile("campground.jpg");
+    cy.get("#description-input").type(campground.description);
+    cy.contains("Submit").click();
+  });
+
+  it("delete campground", () => {
+    cy.contains(campground.name)
+      .parentsUntil(".col-lg-3")
+      .within(() => {
+        cy.contains("More info").click();
+      });
+    cy.get(".btn-danger").click();
+    cy.contains(".alert.alert-success", "Campground deleted successfully!");
   });
 });
